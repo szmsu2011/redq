@@ -2,7 +2,7 @@ Package: redq
 Title: Empirical Dynamic Quantiles for Time Series
 Version: 0.0.0.9000
 Authors@R: 
-    person("Stephen", "Su", , "szmsu2011@hotmail.co.nz", role = c("aut", "cre"),
+    person("Zhaoming", "Su", , "szmsu2011@hotmail.co.nz", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0002-5402-0667"))
 Description: A semi-vectorised parallel-looped algorithm for computing empirical
     dynamic quantiles for large temporal data sets.
