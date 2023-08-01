@@ -7,7 +7,7 @@ library(dplyr)
 etqd_vec <- function(x, p) {
   P <- p + outer(x, x, "<") * (1 - p * 2)
   D <- abs(outer(x, x, "-"))
-  map_dbl(seq_len(nrow(P)), \(i) sum(P[, i] * D[i, ]))
+  map_dbl(seq_len(nrow(P)), \(i) sum(P[, i] * D[i, ], na.rm = TRUE))
 }
 
 edqd_mat <- function(x, p, n_sessions = 1L) {
@@ -26,6 +26,9 @@ edq <- function(x, p, ...) {
 }
 
 edq.matrix <- function(x, p, ...) {
+  if (any(is.na(x))) {
+    warn("Missing values detected, the results might be biased.")
+  }
   x[, map_dbl(p, \(p) which.min(edqd_mat(x, p)))] |>
     as.matrix() |>
     array_branch(2) |>
@@ -33,13 +36,15 @@ edq.matrix <- function(x, p, ...) {
     as_tibble()
 }
 
-edq.data.frame <- function(x, p, ts_col = seq_len(ncol(x))) {
-  edq(as.matrix(select(x[, ts_col], where(is.numeric))), p)
+edq.data.frame <- function(x, p, ...) {
+  if (length(dots_list(...))) x <- select(x, ...)
+  edq(as.matrix(select(x, where(is.numeric))), p)
 }
 
 edq.tbl_ts <- function(...) {
   abort("edq for tsibble is not ready.")
 }
+
 
 ## Examples
 library(tidyr)
