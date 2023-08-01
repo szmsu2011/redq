@@ -1,25 +1,37 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+options(width = 100)
+```
 
 # redq
 
 ## Empirical Dynamic Quantiles for Time Series
 
-A semi-vectorised parallel-looped algorithm for computing empirical
-dynamic quantiles for large temporal data sets.
+A semi-vectorised parallel-looped algorithm for computing empirical dynamic quantiles for large temporal data sets.
 
 ## Installation
 
 You could install the package from Github using
 
-``` r
+```{r gh-install, eval = FALSE}
 # install.packages("remotes")
 remotes::install_github("szmsu2011/redq")
 ```
 
 ## Usage
 
-``` r
+```{r example}
 library(redq)
 library(purrr)
 library(tidyr)
@@ -32,23 +44,9 @@ arima_data <- map(seq_len(500), \(x) {
   as_tibble()
 
 (edq_data <- edq(arima_data, c(.25, .5, .75)))
-#> # A tibble: 100 × 3
-#>    q_0.25 q_0.5 q_0.75
-#>     <dbl> <dbl>  <dbl>
-#>  1 -1.47  0.688   2.95
-#>  2 -2.09  0.952   3.25
-#>  3 -2.89  1.63    2.66
-#>  4 -1.40  1.70    4.14
-#>  5 -2.06  0.783   6.23
-#>  6 -0.656 0.699   5.57
-#>  7 -2.21  0.412   4.47
-#>  8 -2.87  0.417   4.44
-#>  9 -1.77  0.647   2.94
-#> 10 -2.31  0.746   2.74
-#> # ℹ 90 more rows
 ```
 
-``` r
+```{r plot, fig.height = 3, message = FALSE}
 library(dplyr)
 library(ggplot2)
 
@@ -67,5 +65,3 @@ arima_data |>
   theme(legend.title = element_blank()) +
   labs(y = "")
 ```
-
-<img src="man/figures/README-plot-1.png" width="100%" />
