@@ -9,6 +9,6 @@
 A semi-vectorised parallel-looped algorithm for computing empirical dynamic quantiles for large temporal data sets.
 }
 \author{
-\strong{Maintainer}: Stephen Su \email{szmsu2011@hotmail.co.nz} (\href{https://orcid.org/0009-0002-5402-0667}{ORCID})
+\strong{Maintainer}: Zhaoming Su \email{szmsu2011@hotmail.co.nz} (\href{https://orcid.org/0009-0002-5402-0667}{ORCID})
 
 }

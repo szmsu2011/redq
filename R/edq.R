@@ -15,9 +15,9 @@ edqd_mat <- function(x, p, n_sessions) {
 #'
 #' @param x The data.
 #' @param p A numeric vector of probabilities with values in `[0,1]`.
-#' @param n_sessions Number of sessions for parallel processing.
 #' @param ... <[`tidy-select`][dplyr_tidy_select]> If a `data.frame` is passed
 #'   to `x`, the measured time series variables in the data set.
+#' @param n_sessions Number of sessions for parallel processing.
 #'
 #' @return The EDQ data.
 #' @rdname edq
