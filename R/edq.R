@@ -1,5 +1,6 @@
 edqd_mat <- function(x, p) {
-  etqd_ls <- future_map(array_branch(x, 1), etqd_vec, p = p)
+  etqd_ls <- array_branch(x, 1) |>
+    future_map(etqd_vec, p = p, .options = furrr_options(seed = NULL))
   colSums(inject(rbind(!!!etqd_ls)))
 }
 
@@ -34,7 +35,6 @@ edqd_mat <- function(x, p) {
 #'   set_names(sprintf("ts%s", seq_len(500))) |>
 #'   as_tibble()
 #'
-#' ## n_core > 1L only works on UNIX machines and NOT in RStudio
 #' edq_data <- edq(arima_data, c(.25, .5, .75), n_core = 1L)
 #'
 #' arima_data |>

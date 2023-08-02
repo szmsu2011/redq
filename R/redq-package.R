@@ -3,7 +3,7 @@
 #' @importFrom dplyr select where
 #' @importFrom tibble as_tibble
 #' @importFrom purrr array_branch map_dbl
-#' @importFrom furrr future_map
+#' @importFrom furrr future_map furrr_options
 #' @importFrom future plan multicore availableCores sequential
 #' @importFrom parallelly supportsMulticore
 #' @importFrom Rcpp sourceCpp
