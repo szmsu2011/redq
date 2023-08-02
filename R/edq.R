@@ -63,7 +63,7 @@ edq <- function(x, p, ..., n_core = 1L) {
 #' @export
 edq.matrix <- function(x, p, ..., n_core = 1L) {
   if (any(is.na(x))) {
-    warn("Missing values detected, the results might be biased.")
+    abort("Missing values detected, please inspect the data.")
   }
   if (n_core > 1L) {
     if (!supportsMulticore()) {
