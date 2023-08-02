@@ -4,7 +4,7 @@
 \alias{edq}
 \title{Compute empirical dynamic quantiles for a temporal data set}
 \usage{
-edq(x, p, ..., n_sessions = 1L)
+edq(x, p, ..., n_core = 1L)
 }
 \arguments{
 \item{x}{The data.}
@@ -14,7 +14,8 @@ edq(x, p, ..., n_sessions = 1L)
 \item{...}{<\code{\link[=dplyr_tidy_select]{tidy-select}}> If a \code{data.frame} is passed
 to \code{x}, the measured time series variables in the data set.}
 
-\item{n_sessions}{Number of sessions for parallel processing.}
+\item{n_core}{Number of cores used for parallel processing. See
+\code{\link[parallelly:supportsMulticore]{parallelly::supportsMulticore()}} for its availability.}
 }
 \value{
 The EDQ data.

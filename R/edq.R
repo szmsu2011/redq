@@ -4,10 +4,8 @@ etqd_vec <- function(x, p) {
   map_dbl(seq_len(nrow(P)), \(i) sum(P[, i] * D[i, ], na.rm = TRUE))
 }
 
-edqd_mat <- function(x, p, n_sessions) {
-  op <- plan(multisession, workers = n_sessions)
+edqd_mat <- function(x, p) {
   etqd_ls <- future_map(array_branch(x, 1), etqd_vec, p = p)
-  plan(op)
   colSums(inject(rbind(!!!etqd_ls)))
 }
 
@@ -17,7 +15,8 @@ edqd_mat <- function(x, p, n_sessions) {
 #' @param p A numeric vector of probabilities with values in `[0,1]`.
 #' @param ... <[`tidy-select`][dplyr_tidy_select]> If a `data.frame` is passed
 #'   to `x`, the measured time series variables in the data set.
-#' @param n_sessions Number of sessions for parallel processing.
+#' @param n_core Number of cores used for parallel processing. See
+#'   [parallelly::supportsMulticore()] for its availability.
 #'
 #' @return The EDQ data.
 #' @rdname edq
@@ -53,7 +52,7 @@ edqd_mat <- function(x, p, n_sessions) {
 #'   theme(legend.title = element_blank()) +
 #'   labs(y = "")
 #' @export
-edq <- function(x, p, ..., n_sessions = 1L) {
+edq <- function(x, p, ..., n_core = 1L) {
   p <- suppressWarnings(as.numeric(p))
   if (!isTRUE(try(all(p >= 0 & p <= 1), silent = TRUE))) {
     abort("`p` must be coercible to `numeric` and in [0,1].")
@@ -62,24 +61,41 @@ edq <- function(x, p, ..., n_sessions = 1L) {
 }
 
 #' @export
-edq.matrix <- function(x, p, ..., n_sessions = 1L) {
+edq.matrix <- function(x, p, ..., n_core = 1L) {
   if (any(is.na(x))) {
     warn("Missing values detected, the results might be biased.")
   }
-  x[, map_dbl(p, \(p) which.min(edqd_mat(x, p, n_sessions)))] |>
+  if (n_core > 1L) {
+    if (!supportsMulticore()) {
+      abort(paste(
+        "Process forking not supported in current OS or R environment.",
+        "Please retry with `n_core = 1L` or avoid MS Windows and RStudio."
+      ))
+    }
+    if (n_core > availableCores()) {
+      n_core <- availableCores()
+      warn(sprintf("Setting `n_core = %sL`.", n_core))
+    }
+    plan(multicore, workers = n_core)
+  } else {
+    plan(sequential)
+  }
+  edq_tbl <- x[, map_dbl(p, \(p) which.min(edqd_mat(x, p)))] |>
     as.matrix() |>
     array_branch(2) |>
     set_names(sprintf("q_%s", round(p, 3))) |>
     as_tibble()
+  plan(sequential)
+  edq_tbl
 }
 
 #' @export
-edq.data.frame <- function(x, p, ..., n_sessions = 1L) {
+edq.data.frame <- function(x, p, ..., n_core = 1L) {
   if (length(dots_list(...))) x <- select(x, ...)
-  edq(as.matrix(select(x, where(is.numeric))), p, n_sessions = n_sessions)
+  edq(as.matrix(select(x, where(is.numeric))), p, n_core = n_core)
 }
 
 #' @export
-edq.tbl_ts <- function(x, p, ..., n_sessions = 1L) {
+edq.tbl_ts <- function(x, p, ..., n_core = 1L) {
   abort("edq for tsibble is not ready.")
 }
