@@ -1,9 +1,3 @@
-etqd_vec <- function(x, p) {
-  P <- p + outer(x, x, "<") * (1 - p * 2)
-  D <- abs(outer(x, x, "-"))
-  map_dbl(seq_len(nrow(P)), \(i) sum(P[, i] * D[i, ], na.rm = TRUE))
-}
-
 edqd_mat <- function(x, p) {
   etqd_ls <- future_map(array_branch(x, 1), etqd_vec, p = p)
   colSums(inject(rbind(!!!etqd_ls)))
@@ -40,7 +34,8 @@ edqd_mat <- function(x, p) {
 #'   set_names(sprintf("ts%s", seq_len(500))) |>
 #'   as_tibble()
 #'
-#' edq_data <- edq(arima_data, c(.25, .5, .75))
+#' ## n_core > 1L only works on UNIX machines and NOT in RStudio
+#' edq_data <- edq(arima_data, c(.25, .5, .75), n_core = 1L)
 #'
 #' arima_data |>
 #'   mutate(time = seq_len(nrow(arima_data))) |>

@@ -37,7 +37,8 @@ arima_data <- map(seq_len(500), \(x) {
   set_names(sprintf("ts\%s", seq_len(500))) |>
   as_tibble()
 
-edq_data <- edq(arima_data, c(.25, .5, .75))
+## n_core > 1L only works on UNIX machines and NOT in RStudio
+edq_data <- edq(arima_data, c(.25, .5, .75), n_core = 1L)
 
 arima_data |>
   mutate(time = seq_len(nrow(arima_data))) |>

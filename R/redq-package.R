@@ -6,4 +6,6 @@
 #' @importFrom furrr future_map
 #' @importFrom future plan multicore availableCores sequential
 #' @importFrom parallelly supportsMulticore
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib redq, .registration = TRUE
 "_PACKAGE"
