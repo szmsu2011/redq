@@ -21,6 +21,11 @@ edqd_mat <- function(x, p) {
 #' @return The EDQ data.
 #' @rdname edq
 #'
+#' @references
+#' Daniel Peña, Ruey S. Tsay & Ruben Zamar (2019) Empirical Dynamic Quantiles
+#' for Visualization of High-Dimensional Time Series, Technometrics, 61:4,
+#' 429-444, DOI: 10.1080/00401706.2019.1575285
+#'
 #' @examples
 #' library(redq)
 #' library(purrr)
