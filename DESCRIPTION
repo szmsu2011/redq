@@ -6,7 +6,9 @@ Authors@R:
            comment = c(ORCID = "0009-0002-5402-0667"))
 Description: A semi-vectorised parallel-looped algorithm for computing empirical
     dynamic quantiles for large temporal data sets, coded in R and C++.
-License: GPL (>= 3)
+License: GPL-3
+URL: https://github.com/szmsu2011/redq
+BugReports: https://github.com/szmsu2011/redq/issues
 Depends:
     R (>= 4.1.0)
 LinkingTo: Rcpp
