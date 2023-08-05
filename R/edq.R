@@ -80,13 +80,13 @@ edq.matrix <- function(x, p, ..., n_core = 1L) {
   } else {
     plan(sequential)
   }
-  edq_tbl <- x[, map_dbl(p, \(p) which.min(edqd_mat(x, p)))] |>
+  edq_tbl <- x[, n <- map_dbl(p, \(p) which.min(edqd_mat(x, p)))] |>
     as.matrix() |>
     array_branch(2) |>
     set_names(sprintf("q_%s", round(p, 3))) |>
     as_tibble()
   plan(sequential)
-  edq_tbl
+  structure(edq_tbl, series_index = set_names(n, sprintf("q_%s", round(p, 3))))
 }
 
 #' @export
