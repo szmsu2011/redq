@@ -1,4 +1,4 @@
-#' redq: empirical dynamic quantiles for time series
+#' redq: fast algorithm for computing empirical dynamic quantiles for time series
 #' @importFrom rlang dots_list set_names abort warn inject
 #' @importFrom dplyr select where
 #' @importFrom tibble as_tibble

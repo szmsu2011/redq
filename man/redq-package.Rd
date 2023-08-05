@@ -4,7 +4,7 @@
 \name{redq-package}
 \alias{redq}
 \alias{redq-package}
-\title{redq: empirical dynamic quantiles for time series}
+\title{redq: fast algorithm for computing empirical dynamic quantiles for time series}
 \description{
 A semi-vectorised parallel-looped algorithm for computing empirical dynamic quantiles for large temporal data sets, coded in R and C++.
 }

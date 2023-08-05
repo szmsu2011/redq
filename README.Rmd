@@ -16,7 +16,7 @@ options(width = 100)
 
 # redq
 
-## Empirical Dynamic Quantiles for Time Series
+## Fast Algorithm for Computing Empirical Dynamic Quantiles for Time Series
 
 A semi-vectorised parallel-looped algorithm for computing empirical dynamic quantiles for large temporal data sets.
 

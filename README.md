@@ -3,7 +3,7 @@
 
 # redq
 
-## Empirical Dynamic Quantiles for Time Series
+## Fast Algorithm for Computing Empirical Dynamic Quantiles for Time Series
 
 A semi-vectorised parallel-looped algorithm for computing empirical
 dynamic quantiles for large temporal data sets.
@@ -34,7 +34,7 @@ arima_data <- map(seq_len(500), \(x) {
 (edq_data <- edq(arima_data, c(.25, .5, .75)))
 #> # A tibble: 100 × 3
 #>    q_0.25 q_0.5 q_0.75
-#>     <dbl> <dbl>  <dbl>
+#>  *  <dbl> <dbl>  <dbl>
 #>  1 -1.47  0.688   2.95
 #>  2 -2.09  0.952   3.25
 #>  3 -2.89  1.63    2.66
