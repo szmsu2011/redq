@@ -1,11 +1,11 @@
 Package: redq
-Title: Empirical Dynamic Quantiles for Time Series
-Version: 0.0.0.9000
+Title: Fast Algorithm for Computing Empirical Dynamic Quantiles for Time Series
+Version: 1.0.0
 Authors@R: 
     person("Zhaoming", "Su", , "szmsu2011@hotmail.co.nz", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0002-5402-0667"))
 Description: A semi-vectorised parallel-looped algorithm for computing empirical
-    dynamic quantiles for large temporal data sets.
+    dynamic quantiles for large temporal data sets, coded in R and C++.
 License: GPL (>= 3)
 Depends:
     R (>= 4.1.0)
@@ -18,12 +18,12 @@ Imports:
     parallelly (>= 1.34.0),
     rlang (>= 0.4.12),
     tibble (>= 3.1.6),
-    dplyr (>= 1.0.10),
-    tsibble (>= 1.1.3),
-    ggplot2 (>= 3.4.1)
+    dplyr (>= 1.0.10)
 Suggests:
     tidyr (>= 1.3.0),
-    lubridate (>= 1.7.8)
+    lubridate (>= 1.7.8),
+    tsibble (>= 1.1.3),
+    ggplot2 (>= 3.4.1)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
